@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { createExamActions } from "../../redux/actions/createExamAction";
 
 const useCreateExam = () => {
   const [exam, setExam] = useState(
@@ -11,16 +13,13 @@ const useCreateExam = () => {
           options: ["", "", "", ""],
         },
       ],
-      notes: [],
+      notes: ["10mins exam", "start time 10am"],
       currentIndex: 0,
     } || {}
   );
 
   const [buttonStatus, setButtonStatus] = useState(true);
-  const api = () => {
-    const { currentIndex, ...rest } = exam;
-    console.log(`rest`, rest);
-  };
+  const dispatch = useDispatch();
 
   const onChange = (i) => (e) => {
     console.log("i is", i);
@@ -83,7 +82,6 @@ const useCreateExam = () => {
       setExam(updateExam);
     }
     setExam(examCloned);
-    api();
   };
 
   const clearData = (id) => {
@@ -96,10 +94,16 @@ const useCreateExam = () => {
         return item;
       }
     });
+
     setExam({ ...exam, questions: upDateArray });
   };
 
-  return [exam, buttonStatus, onChange, clearData];
+  const createExam = () => {
+    const { currentIndex, ...rest } = exam;
+    console.log(`rest`, rest);
+    dispatch(createExamActions(rest));
+  };
+  return [exam, buttonStatus, onChange, clearData, createExam];
 };
 
 export default useCreateExam;

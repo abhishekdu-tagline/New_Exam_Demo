@@ -8,7 +8,6 @@ const Teacher = () => {
   return (
     <>
       <h4> teacher component</h4>
-
       <div>
         <nav>
           <ul>

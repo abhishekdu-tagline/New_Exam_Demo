@@ -3,7 +3,9 @@ import useCreateExam from "../hooks/useCreateExam";
 
 const CreateExam = () => {
   console.log("Create Exam Rendering");
-  const [exam, buttonStatus, onChange, clearData] = useCreateExam();
+  const [exam, buttonStatus, onChange, clearData, createExam] = useCreateExam();
+  const baseUrl =
+    "https://nodejsexamination.herokuapp.com/dashboard/Teachers/Exam";
 
   console.log(`Final Exam Clone Data is`, exam);
 
@@ -68,7 +70,14 @@ const CreateExam = () => {
         clear
       </button>
       {buttonStatus ? (
-        <button name="submit">Submit</button>
+        <button
+          name="submit"
+          onClick={() => {
+            createExam(baseUrl);
+          }}
+        >
+          Submit
+        </button>
       ) : (
         <button name="update" onClick={onChange()}>
           Update
