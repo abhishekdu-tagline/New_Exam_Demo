@@ -31,3 +31,18 @@ export const putRequest = (putUrl, data) => {
   const res = axios.put(putUrl, data, { headers: examHeaders });
   return res;
 };
+
+//// axios API call Function
+
+axios({
+  method: "post",
+  url: "/user/12345",
+  data: {
+    firstName: "Fred",
+    lastName: "Flintstone",
+  },
+});
+
+export const apiCall = (request, baseUrl, data, headers) => {
+  const res = axios({});
+};
