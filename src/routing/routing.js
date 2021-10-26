@@ -2,10 +2,14 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "../Component/auth/Login";
+
 import { Signup } from "../Component/auth/Signup";
 import EditExam from "../Component/createExam/EditExam";
 import Student from "./Student";
 import Teacher from "./Teacher";
+import ForgotPassword from "../Component/auth/ForgotPassword";
+import NewPassword from "../Component/auth/NewPassword";
+import ResetPassword from "../Component/auth/ResetPassword";
 
 const Routes = () => {
   const state = useSelector((state) => state.authReducer.loginUser.data);
@@ -17,6 +21,9 @@ const Routes = () => {
           <Route exact path="/" component={Login} />
           <Route path="/signup" component={Signup} />
           <Route path="/edit_exam/:id" component={EditExam} />
+          <Route path="/forgot_password" component={ForgotPassword} />
+          <Route path="/newPassWord" component={NewPassword} />
+          <Route path="/resetPassWord" component={ResetPassword} />
 
           {state?.role === "student" && <Student />}
           {state?.role === "teacher" && <Teacher />}

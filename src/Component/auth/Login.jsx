@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import useLogin from "../hooks/useLogin";
 
 const Login = () => {
@@ -27,7 +28,10 @@ const Login = () => {
       <br />
       <button type="button" name="login" onClick={onChange}>
         login
-      </button>
+      </button>{" "}
+      <br /> <br />
+      <Link to="/forgot_password">Forgot Password</Link> <br />
+      <Link to="/resetPassWord">Reset Password</Link> <br />
     </>
   );
 };

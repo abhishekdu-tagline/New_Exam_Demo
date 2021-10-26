@@ -49,6 +49,7 @@ const useCreateExam = () => {
       } else {
         console.log("Else is run");
         examCloned.currentIndex = examCloned.currentIndex + 1;
+        console.log("current Index is", examCloned.currentIndex);
         examCloned.questions.push({
           question: "",
           answer: "",

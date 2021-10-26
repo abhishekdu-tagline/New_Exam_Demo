@@ -72,3 +72,51 @@ export const loginAction = (data, history) => {
     }
   };
 };
+
+export const forgotPassword = (email) => {
+  return async () => {
+    try {
+      const res = await axios.post(
+        "https://nodejsexamination.herokuapp.com/users/ForgotPassword",
+        email,
+        {
+          headers: headers,
+        }
+      );
+      console.log("Forgot PassWord API response", res);
+    } catch (err) {
+      console.log("Forgot Password Failed", err);
+    }
+  };
+};
+
+export const setNewPasswordAction = (data, searchToken, history) => {
+  console.log("set New Password Action is called");
+  return async () => {
+    try {
+      const res = await axios.post(
+        `https://nodejsexamination.herokuapp.com/users/ForgotPassword/Verify${searchToken}`,
+        data,
+        {
+          headers: headers,
+        }
+      );
+      if (res.data.statusCode === 200) {
+        alert("ForgotPassword successful");
+        history.push("/");
+      } else {
+        alert("Invalid Email");
+      }
+    } catch (err) {
+      console.log("Error: ", err);
+    }
+  };
+};
+
+export const resetPassword = (newPassword) => {
+  return async () => {
+    try {
+      const res = await axios.post();
+    } catch (err) {}
+  };
+};

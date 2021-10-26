@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
-import { giveExamActions } from "../../redux/actions/giveExam";
 import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { giveExamActions } from "../../redux/actions/giveExam";
 
-const ExamPaper = () => {
-  // const [examData, setExamData] = useState(
-  //   JSON.parse(localStorage.getItem("exam")) || []
-  // );
+const useGiveExam = () => {
   const examData = JSON.parse(localStorage.getItem("exam")) || [];
 
   const [giveExam, setGiveExam] = useState(
@@ -85,52 +82,7 @@ const ExamPaper = () => {
       });
     }
   };
-
-  console.log("give Exam Current Data is", giveExam);
-
-  return (
-    <>
-      {giveExam.currentIndexData.map((item, index) => {
-        return (
-          <>
-            <div key={index}>
-              {item.question}
-              <br /> <br />
-              {item.options.map((opt, i) => {
-                return (
-                  <>
-                    <input
-                      type="radio"
-                      name="answer"
-                      value={opt}
-                      checked={opt === giveExam.selectAnswer}
-                      onChange={(e) => {
-                        handleChange(e, item._id);
-                      }}
-                    />
-                    <span>{opt}</span> <br />
-                  </>
-                );
-              })}
-            </div>
-          </>
-        );
-      })}
-      <br />
-      <button type="button" name="submit" onClick={submitAnswer}>
-        Submit Answer{" "}
-      </button>
-      {giveExam.currentIndex === examData.length - 1 ? (
-        <button type="button" name="finishExam" onClick={handleChange}>
-          Finish Exam
-        </button>
-      ) : (
-        <button type="button" name="next" onClick={handleChange}>
-          Next{" "}
-        </button>
-      )}
-    </>
-  );
+  return [handleChange, submitAnswer, giveExam];
 };
 
-export default ExamPaper;
+export default useGiveExam;

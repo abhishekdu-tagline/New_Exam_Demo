@@ -32,6 +32,10 @@ export const putRequest = (putUrl, data) => {
   return res;
 };
 
+export const giveExam = (baseUrl, data) => {
+  const res = axios.post(baseUrl, data, { headers: examHeaders });
+  return res;
+};
 //// axios API call Function
 
 axios({
