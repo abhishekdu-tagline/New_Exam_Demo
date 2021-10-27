@@ -37,6 +37,10 @@ export const giveExam = (baseUrl, data) => {
   return res;
 };
 //// axios API call Function
+export const resetPassword = (baseUrl, data, examHeaders) => {
+  const res = axios.post(baseUrl, data, { headers: examHeaders });
+  return res;
+};
 
 axios({
   method: "post",

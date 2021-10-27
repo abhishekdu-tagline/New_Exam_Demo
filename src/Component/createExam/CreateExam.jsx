@@ -3,12 +3,12 @@ import useCreateExam from "../hooks/useCreateExam";
 
 const CreateExam = () => {
   console.log("Create Exam Rendering");
-  const [exam, buttonStatus, onChange, clearData, createExam] = useCreateExam();
+  const [exam, buttonStatus, error, onChange, clearData, createExam] =
+    useCreateExam();
   const baseUrl =
     "https://nodejsexamination.herokuapp.com/dashboard/Teachers/Exam";
 
-  console.log(`Final Exam Clone Data is`, exam);
-
+     console.log("Error Object Value in " , error);
   return (
     <div>
       <select name="subjectName" onChange={onChange()}>
@@ -35,13 +35,23 @@ const CreateExam = () => {
                     <input
                       key={i}
                       type="text"
-                      name={key}
+                      name="options"
                       value={op}
                       onChange={onChange(i)}
                       placeholder={i}
                     />
+                   {/* {key === "options" ?  error?.options?.map((item) => {
+                      
+                               <p>{item}</p>
+                   }) : " "} */}
+                 
+
+                    <br />
+                    <br />
+                    
                   </React.Fragment>
                 ))
+                 
               ) : (
                 <input
                   type="text"
@@ -51,6 +61,9 @@ const CreateExam = () => {
                   placeholder={key}
                 />
               )}
+              {key === "question"
+                ? error.question && <p>{error.question}</p>
+                : ""}
             </div>
           );
         }

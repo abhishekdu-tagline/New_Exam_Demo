@@ -82,7 +82,7 @@ const useGiveExam = () => {
       });
     }
   };
-  return [handleChange, submitAnswer, giveExam];
+  return [handleChange, submitAnswer, giveExam, examData];
 };
 
 export default useGiveExam;

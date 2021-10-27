@@ -31,7 +31,6 @@ const Login = () => {
       </button>{" "}
       <br /> <br />
       <Link to="/forgot_password">Forgot Password</Link> <br />
-      <Link to="/resetPassWord">Reset Password</Link> <br />
     </>
   );
 };

@@ -18,8 +18,46 @@ const useCreateExam = () => {
     } || {}
   );
 
+  const [error, setError] = useState({});
+
   const [buttonStatus, setButtonStatus] = useState(true);
   const dispatch = useDispatch();
+
+  const checkValidation = (myObj) => {
+    let errorMessage = {};
+    // );myObj.options.includes("")
+    //   ? alert("plese fill in the data")
+    //   : console.log("executed"
+    console.log("my Obj is", myObj);
+
+    if (!myObj?.question) {
+      errorMessage.question = "Enter Question........";
+    }
+
+    // for (let i = 0; i < myObj.options.length - 1; i++) {
+    //   // debugger;
+    //   if (myObj.options[i] === "") {
+    //     console.log("Condition is true");
+    //     errorMessage.options = "Enter Options........";
+    //   }
+    // }
+
+    if (myObj.options) {
+      const optionErr = myObj.options.map((item) => {
+        if (item === "") {
+          return "Enter Options........";
+        }
+      });
+      console.log("Option Arr", optionErr);
+      errorMessage.options = optionErr;
+    }
+
+    console.log("Error Object  Message is", errorMessage);
+
+    setError(errorMessage);
+
+    return errorMessage;
+  };
 
   const onChange = (i) => (e) => {
     console.log("i is", i);
@@ -46,18 +84,38 @@ const useCreateExam = () => {
         examCloned.currentIndex = examCloned.currentIndex + 1;
         let nextValue = examCloned.questions[examCloned.currentIndex + 1];
         setExam(nextValue);
-      } else {
-        console.log("Else is run");
-        examCloned.currentIndex = examCloned.currentIndex + 1;
-        console.log("current Index is", examCloned.currentIndex);
-        examCloned.questions.push({
-          question: "",
-          answer: "",
-          options: ["", "", "", ""],
-        });
-
-        // console.log("Exam Clone", examCloned.questions);
+      } else if (examCloned.currentIndex === examCloned.questions.length - 1) {
+        console.log("Else if is run");
+        const data = examCloned?.questions[examCloned.currentIndex]?.options.includes("");
+        if (data) {
+           let errMsg = checkValidation(examCloned?.questions[examCloned.currentIndex]);
+           console.log("error Message" , errMsg);
+        } else {
+          console.log("Error Object length is" , );
+          examCloned.currentIndex = examCloned.currentIndex + 1;
+          console.log("current Index is", examCloned.currentIndex);
+          examCloned.questions.push({
+            question: "",
+            answer: "",
+            options: ["", "", "", ""],
+          });
+          setError({})
+        }
+        // let errMsg = checkValidation(
+        //   examCloned.questions[examCloned.currentIndex]
+        // );
+        // if (Object.keys(errMsg).length === 0) {
+        //   examCloned.currentIndex = examCloned.currentIndex + 1;
+        //   console.log("current Index is", examCloned.currentIndex);
+        //   examCloned.questions.push({
+        //     question: "",
+        //     answer: "",
+        //     options: ["", "", "", ""],
+        //   });
+        // }
       }
+
+      // console.log("Exam Clone", examCloned.questions);
     }
     if (name === "prev") {
       setButtonStatus(false);
@@ -104,7 +162,7 @@ const useCreateExam = () => {
     console.log(`rest`, rest);
     dispatch(createExamActions(rest));
   };
-  return [exam, buttonStatus, onChange, clearData, createExam];
+  return [exam, buttonStatus, error, onChange, clearData, createExam];
 };
 
 export default useCreateExam;

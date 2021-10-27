@@ -112,11 +112,3 @@ export const setNewPasswordAction = (data, searchToken, history) => {
     }
   };
 };
-
-export const resetPassword = (newPassword) => {
-  return async () => {
-    try {
-      const res = await axios.post();
-    } catch (err) {}
-  };
-};

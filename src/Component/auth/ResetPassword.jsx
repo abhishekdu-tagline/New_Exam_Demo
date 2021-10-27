@@ -1,30 +1,10 @@
 import React, { useState } from "react";
+import useResetPassword from "../hooks/useResetPassword";
 
 const ResetPassword = () => {
-  const [resetPassword, setResetPassword] = useState({
-    oldPassword: "",
-    Password: "",
-    ConfirmPassword: "",
-  });
+  const [resetPassword, error, handleNewPassword] = useResetPassword();
 
-  const handleNewPassword = (e) => {
-    const { name, value } = e.target;
-    const passWordCloned = { ...resetPassword };
-    if (
-      name === "oldPassword" ||
-      name === "Password" ||
-      name === "ConfirmPassword"
-    ) {
-      passWordCloned[name] = value;
-    }
-
-    if (name === "resetPassword") {
-      console.log("passWordCloned is", passWordCloned);
-    }
-    setResetPassword(passWordCloned);
-  };
-
-  console.log("reset password is ", resetPassword);
+  // });
   return (
     <>
       <h4>Reset Password Component</h4>
@@ -39,6 +19,15 @@ const ResetPassword = () => {
               onChange={handleNewPassword}
             />{" "}
             <br /> <br />
+            {key === "oldPassword"
+              ? error.oldPassword && <p>{error.oldPassword}</p>
+              : ""}
+            {key === "Password"
+              ? error.Password && <p>{error.Password}</p>
+              : ""}
+            {key === "ConfirmPassword"
+              ? error.ConfirmPassword && <p>{error.ConfirmPassword}</p>
+              : ""}
           </div>
         );
       })}

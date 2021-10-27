@@ -9,7 +9,6 @@ import Student from "./Student";
 import Teacher from "./Teacher";
 import ForgotPassword from "../Component/auth/ForgotPassword";
 import NewPassword from "../Component/auth/NewPassword";
-import ResetPassword from "../Component/auth/ResetPassword";
 
 const Routes = () => {
   const state = useSelector((state) => state.authReducer.loginUser.data);
@@ -23,7 +22,6 @@ const Routes = () => {
           <Route path="/edit_exam/:id" component={EditExam} />
           <Route path="/forgot_password" component={ForgotPassword} />
           <Route path="/newPassWord" component={NewPassword} />
-          <Route path="/resetPassWord" component={ResetPassword} />
 
           {state?.role === "student" && <Student />}
           {state?.role === "teacher" && <Teacher />}
