@@ -8,14 +8,28 @@ const ViewExam = () => {
   const [mount, setMount] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
-  const baseUrl =
-    "https://nodejsexamination.herokuapp.com/dashboard/Teachers/viewExam";
+
+  const token = localStorage.getItem("jwt");
+  console.log(token);
+
+  const examHeaders = {
+    "Content-Type": "application/json",
+    "access-token": token,
+  };
+
+  const config = {
+    method: "get",
+    url: "https://nodejsexamination.herokuapp.com/dashboard/Teachers/viewExam",
+    headers: examHeaders,
+  };
+
   useEffect(() => {
     if (!mount) {
       setMount(true);
-      dispatch(viewExams(baseUrl));
+      dispatch(viewExams(config));
     }
   }, [mount]);
+
   const state = useSelector((state) => state.createExamReducer) || [];
   const { viewExam } = state;
   const tableHeaderList = viewExam.length > 0 ? Object.keys(viewExam[0]) : [];

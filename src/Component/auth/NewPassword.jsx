@@ -1,50 +1,36 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom";
-import { setNewPasswordAction } from "../../redux/actions/authAction";
+import React from "react";
+
+import useNewPassword from "../hooks/useNewPassword";
 
 const NewPassword = () => {
-  const [newPassword, setNewPassword] = useState({
-    Password: "",
-    ConfirmPassword: "",
-  });
-
-  const location = useLocation();
-  const searchToken = location.search;
-  const dispatch = useDispatch();
-  const history = useHistory();
-
-  const handlePassword = (e) => {
-    const { name, value } = e.target;
-    const passWordCloned = { ...newPassword };
-    if (name === "Password" || name === "ConfirmPassword") {
-      passWordCloned[name] = value;
-    }
-
-    if (name === "newPassword") {
-      dispatch(setNewPasswordAction(newPassword, searchToken, history));
-    }
-
-    setNewPassword(passWordCloned);
-  };
-
+  const [newPassword, error, handlePassword, handlePasswordSubmit] =
+    useNewPassword();
+  console.log("Error is", error);
   return (
     <>
       <h4> New Password</h4>
       {Object.entries(newPassword).map(([key, val], index) => {
+        console.log([key, val]);
         return (
           <div key={index}>
             <input
               type={key === "ConfirmPassword" ? "password" : "password"}
               name={key}
               placeholder={key}
+              value={val}
               onChange={handlePassword}
             />{" "}
             <br /> <br />
+            {key === "Password"
+              ? error?.Password && <p>{error?.Password}</p>
+              : ""}
+            {key === "ConfirmPassword"
+              ? error?.ConfirmPassword && <p>{error?.ConfirmPassword}</p>
+              : ""}
           </div>
         );
       })}
-      <button type="button" name="newPassword" onClick={handlePassword}>
+      <button type="button" name="newPassword" onClick={handlePasswordSubmit}>
         Set New Password
       </button>
     </>

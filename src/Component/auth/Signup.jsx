@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { signupAction } from "../../redux/actions/authAction";
+import valid from "../../utils/valid";
 export const Signup = () => {
   const [userData, setUserData] = useState({
     name: "",
@@ -54,18 +55,40 @@ export const Signup = () => {
       name === "role"
     ) {
       userCloned[name] = value;
+      setError((error) => ({
+        ...error,
+        [name]: valid(name, value),
+      }));
     }
 
-    if (name === "signUp") {
-      const errMsg = validation(userData);
-      if (Object.keys(errMsg).length === 0) {
-        dispatch(signupAction(userData, history));
-      }
-    }
+    // if (name === "signUp") {
+    //   // const errMsg = validation(userData);
+    //   const errMsg = valid(userData);
+    //   if (Object.keys(errMsg).length === 0) {
+    //   }
+    // }
     setUserData(userCloned);
   };
 
-  console.log("user Data is", userData);
+  const handleSubmit = () => {
+    let validationError = {};
+
+    Object.keys(userData).forEach((name) => {
+      const error = valid(name, userData[name]);
+
+      if (error && error.length > 0) {
+        validationError[name] = error;
+      }
+    });
+
+    if (Object.keys(validationError).length > 0) {
+      setError(validationError);
+    }
+
+    if (Object.keys(validationError).length === 0) {
+      dispatch(signupAction(userData, history));
+    }
+  };
 
   return (
     <>
@@ -99,7 +122,7 @@ export const Signup = () => {
         );
       })}
       <br />
-      <button type="button" name="signUp" onClick={onChange}>
+      <button type="button" name="signUp" onClick={handleSubmit}>
         SignUp
       </button>
     </>

@@ -8,7 +8,8 @@ const CreateExam = () => {
   const baseUrl =
     "https://nodejsexamination.herokuapp.com/dashboard/Teachers/Exam";
 
-     console.log("Error Object Value in " , error);
+  //  console.log("Final Exam Object is" , exam);
+  console.log("Error Object is" , error);
   return (
     <div>
       <select name="subjectName" onChange={onChange()}>
@@ -40,13 +41,10 @@ const CreateExam = () => {
                       onChange={onChange(i)}
                       placeholder={i}
                     />
-                   {/* {key === "options" ?  error?.options?.map((item) => {
-                      
-                               <p>{item}</p>
-                   }) : " "} */}
-                 
+                      {key === "options" ? error.options && <p>{error.options[i]}</p>: ""}
+                  {/* {error?.options[i]}  */}
 
-                    <br />
+                  
                     <br />
                     
                   </React.Fragment>
@@ -64,6 +62,7 @@ const CreateExam = () => {
               {key === "question"
                 ? error.question && <p>{error.question}</p>
                 : ""}
+              {key === "answer" ? error.answer && <p>{error.answer}</p> : ""}
             </div>
           );
         }

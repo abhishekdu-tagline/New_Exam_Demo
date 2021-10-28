@@ -10,6 +10,9 @@ const useLogin = () => {
   });
   const dispatch = useDispatch();
   const history = useHistory();
+  const headers = {
+    "Content-Type": "application/json",
+  };
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -19,7 +22,14 @@ const useLogin = () => {
     }
 
     if (name === "login") {
-      dispatch(loginAction(userData, history));
+      console.log("Cloned is", cloned);
+      const config = {
+        method: "post",
+        url: "https://nodejsexamination.herokuapp.com/users/Login",
+        data: cloned,
+        headers: headers,
+      };
+      dispatch(loginAction(config, history));
     }
 
     setUserData(cloned);

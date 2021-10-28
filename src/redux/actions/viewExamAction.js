@@ -1,10 +1,10 @@
-import { getRequest } from "../../apis/apiCall";
+import { apiCall, getRequest } from "../../apis/apiCall";
 import { VIEW_EXAM } from "../constaints/constaints";
 
-export const viewExams = (baseUrl) => {
+export const viewExams = (config) => {
   return async (dispatch) => {
     try {
-      const exams = await getRequest(baseUrl);
+      const exams = await apiCall(config);
       console.log("Fetch Exams from server", exams);
 
       if (exams.data.statusCode === 200) {

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { apiCall } from "../../apis/apiCall";
 import {
   LOGIN,
   SIGNUP_FAILED,
@@ -39,17 +40,11 @@ export const signupAction = (data, history) => {
   };
 };
 
-export const loginAction = (data, history) => {
-  console.log("login Action is called and Data is", data, history);
+export const loginAction = (config, history) => {
+  console.log("login Action is called and Data is", config, history);
   return async (dispatch) => {
     try {
-      const userRes = await axios.post(
-        "https://nodejsexamination.herokuapp.com/users/Login",
-        data,
-        {
-          headers: headers,
-        }
-      );
+      const userRes = await apiCall(config);
       console.log("Response is UserLogin", userRes);
       if (userRes.data.statusCode === 200) {
         localStorage.setItem("user", userRes.data.data.role);

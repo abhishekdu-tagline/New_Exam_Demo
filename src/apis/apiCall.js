@@ -42,15 +42,7 @@ export const resetPassword = (baseUrl, data, examHeaders) => {
   return res;
 };
 
-axios({
-  method: "post",
-  url: "/user/12345",
-  data: {
-    firstName: "Fred",
-    lastName: "Flintstone",
-  },
-});
-
-export const apiCall = (request, baseUrl, data, headers) => {
-  const res = axios({});
+export const apiCall = (config) => {
+  const res = axios(config);
+  return res;
 };
