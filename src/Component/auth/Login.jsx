@@ -1,16 +1,18 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Button from "../../reusable/Button";
+import Form from "../../reusable/Form";
 import useLogin from "../hooks/useLogin";
 
 const Login = () => {
-  const [userData, onChange] = useLogin() || [];
+  const [userData, error, onChange, handleLogin] = useLogin() || [];
   console.log("userData: " + JSON.stringify(userData));
 
   return (
     <>
       <h4> Login </h4>
-      {Object.entries(userData).map(([key, val], index) => {
+      {/* {Object.entries(userData).map(([key, val], index) => {
         console.log([key, val]);
         return (
           <React.Fragment key={index}>
@@ -21,17 +23,22 @@ const Login = () => {
               placeholder={key}
               onChange={onChange}
             />
+            {key === "email" ? error.email && <p>{error.email}</p> : ""}
+            {key === "password"
+              ? error.password && <p>{error.password}</p>
+              : ""}
+
             <br />
           </React.Fragment>
         );
-      })}
+      })} */}
+      <Form formData={userData} onChange={onChange} error={error} />
       <br />
-      <button type="button" name="login" onClick={onChange}>
-        login
-      </button>{" "}
+      <Button buttonName="Login" handleSubmit={handleLogin} />
       <br /> <br />
       <Link to="/forgot_password">Forgot Password</Link> <br />
       <Link to="/signUp">Sign Up</Link> <br />
+      {/* <Form formData={userData} /> */}
     </>
   );
 };

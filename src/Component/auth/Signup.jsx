@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { signupAction } from "../../redux/actions/authAction";
+import Button from "../../reusable/Button";
+import Form from "../../reusable/Form";
 import valid from "../../utils/valid";
 export const Signup = () => {
   const [userData, setUserData] = useState({
@@ -46,7 +48,7 @@ export const Signup = () => {
 
   const onChange = (e) => {
     const { name, value } = e.target;
-    // console.log(`name and value are ${name} and ${value}`);
+    console.log(`name and value are ${name} and ${value}`);
     const userCloned = { ...userData };
     if (
       name === "name" ||
@@ -90,10 +92,11 @@ export const Signup = () => {
     }
   };
 
+  // console.log("Error is", error);
   return (
     <>
       <h4>Sign up</h4>
-      {Object.entries(userData).map(([key, val], index) => {
+      {/* {Object.entries(userData).map(([key, val], index) => {
         return (
           <React.Fragment key={index}>
             <input
@@ -120,11 +123,14 @@ export const Signup = () => {
             <br />
           </React.Fragment>
         );
-      })}
+      })} */}
+
+      <Form formData={userData} onChange={onChange} error={error} />
       <br />
-      <button type="button" name="signUp" onClick={handleSubmit}>
+      <Button buttonName="signUp" handleSubmit={handleSubmit} />
+      {/* <button type="button" name="signUp" onClick={handleSubmit}>
         SignUp
-      </button>
+      </button> */}
     </>
   );
 };
