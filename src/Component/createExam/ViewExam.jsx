@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { deleteExams } from "../../redux/actions/deleteExamAction";
 import { viewExams } from "../../redux/actions/viewExamAction";
+import Table from "../../reusable/Table";
 
 const ViewExam = () => {
   const [mount, setMount] = useState(false);
@@ -38,9 +39,27 @@ const ViewExam = () => {
   });
   console.log(`table header List`, thead);
 
+  // const tableData = tableHeaderList.filter((th) => {
+  //   return th !== "_id" && th !== "__v" && th !== "email";
+  // });
+
+  const tableHeader = [
+    {
+      id: 1,
+      label: "notes",
+      name: "notes",
+    },
+    {
+      id: 2,
+      label: "subjectName",
+      name: "subjectName",
+    },
+  ];
+
   return (
     <>
-      ViewExam Component
+      <Table cols={tableHeader} tableData={viewExam} />
+      {/* ViewExam Component
       <table border="1">
         <thead>
           <tr>
@@ -81,7 +100,7 @@ const ViewExam = () => {
             );
           })}
         </tbody>
-      </table>
+      </table> */}
     </>
   );
 };

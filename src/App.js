@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import "./App.css";
+import Test from "./Component/Test";
 import { LOGIN } from "./redux/constaints/constaints";
 import Routes from "./routing/routing";
 
@@ -19,6 +20,7 @@ function App() {
   return (
     <div className="App">
       <Routes />
+      {/* <Test /> */}
     </div>
   );
 }

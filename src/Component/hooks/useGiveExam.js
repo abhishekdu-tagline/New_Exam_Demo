@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { giveExamActions } from "../../redux/actions/giveExam";
@@ -44,8 +44,11 @@ const useGiveExam = () => {
   }, [giveExam]);
 
   const handleChange = (e, question) => {
+    console.log("function is called");
+
     localStorage.setItem("selectedOption", e.target.value);
     const { name, value } = e.target;
+    console.log("name and value is", name, value);
     const giveExamCloned = { ...giveExam };
     if (name === "answer") {
       const obj = { question: question, answer: value };

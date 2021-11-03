@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { resetPasswordAction } from "../../redux/actions/resetPasswordAction";
@@ -14,7 +13,7 @@ const useResetPassword = () => {
   const [error, setError] = useState({});
   const dispatch = useDispatch();
   const history = useHistory();
- 
+
   const formValidation = () => {
     let errorObject = {};
 

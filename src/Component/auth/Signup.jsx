@@ -125,7 +125,13 @@ export const Signup = () => {
         );
       })} */}
 
-      <Form formData={userData} onChange={onChange} error={error} />
+      <Form
+        formId="signUp"
+        formData={userData}
+        onChange={onChange}
+        error={error}
+      />
+
       <br />
       <Button buttonName="signUp" handleSubmit={handleSubmit} />
       {/* <button type="button" name="signUp" onClick={handleSubmit}>

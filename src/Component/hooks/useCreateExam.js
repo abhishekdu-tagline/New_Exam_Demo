@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createExamActions } from "../../redux/actions/createExamAction";
 
@@ -51,9 +51,9 @@ const useCreateExam = () => {
       console.log("Option Arr", optionErr);
       errorMessage.options = optionErr;
     }
-    
-    if(!myObj?.answer){
-      errorMessage.answer = "please Select Answer....."
+
+    if (!myObj?.answer) {
+      errorMessage.answer = "please Select Answer.....";
     }
 
     console.log("Error Object  Message is", errorMessage);
@@ -64,13 +64,15 @@ const useCreateExam = () => {
   };
 
   const onChange = (i) => (e) => {
+    console.log("function is called");
     console.log("i is", i);
     const { name, value } = e.target;
     const examCloned = { ...exam };
 
-    console.log("name and value is", name, value);
+    // console.log("name and value is", name, value);
 
     if (name === "subjectName") {
+      // console.log("condition is true");
       examCloned[name] = value;
     }
 
@@ -82,36 +84,43 @@ const useCreateExam = () => {
     }
 
     if (name === "next") {
+      console.log("Current Index is", examCloned.currentIndex);
       if (examCloned.currentIndex < examCloned.questions.length - 1) {
         console.log("if is run......");
-        const data = examCloned?.questions[examCloned.currentIndex]?.options.includes("");
+        const data =
+          examCloned?.questions[examCloned.currentIndex]?.options.includes("");
         if (data) {
-          let errMsg = checkValidation(examCloned?.questions[examCloned.currentIndex]);
-          console.log("error Message" , errMsg);
-        }else{
+          let errMsg = checkValidation(
+            examCloned?.questions[examCloned.currentIndex]
+          );
+          console.log("error Message", errMsg);
+        } else {
           setButtonStatus(true);
           examCloned.currentIndex = examCloned.currentIndex + 1;
-             let nextValue = examCloned.questions[examCloned.currentIndex + 1];
-             setExam(nextValue);
-             setError({})
-            }
-          } else if (examCloned.currentIndex === examCloned.questions.length - 1) {
-            console.log("Else if is run");
-            const data = examCloned?.questions[examCloned.currentIndex]?.options.includes("");
-            if (data) {
-              let errMsg = checkValidation(examCloned?.questions[examCloned.currentIndex]);
-              console.log("error Message" , errMsg);
-            } else {
-              console.log("Error Object length is" , );
-              examCloned.currentIndex = examCloned.currentIndex + 1;
-              console.log("current Index is", examCloned.currentIndex);
-              examCloned.questions.push({
-                question: "",
-                answer: "",
-                options: ["", "", "", ""],
-              });
-              
-          setError({})
+          let nextValue = examCloned.questions[examCloned.currentIndex + 1];
+          setExam(nextValue);
+          setError({});
+        }
+      } else if (examCloned.currentIndex === examCloned.questions.length - 1) {
+        console.log("Else if is run");
+        const data =
+          examCloned?.questions[examCloned.currentIndex]?.options.includes("");
+        if (data) {
+          let errMsg = checkValidation(
+            examCloned?.questions[examCloned.currentIndex]
+          );
+          console.log("error Message", errMsg);
+        } else {
+          console.log("Error Object length is");
+          examCloned.currentIndex = examCloned.currentIndex + 1;
+          console.log("current Index is", examCloned.currentIndex);
+          examCloned.questions.push({
+            question: "",
+            answer: "",
+            options: ["", "", "", ""],
+          });
+
+          setError({});
         }
         // let errMsg = checkValidation(
         //   examCloned.questions[examCloned.currentIndex]
@@ -137,7 +146,7 @@ const useCreateExam = () => {
         let prevValue = examCloned.questions[examCloned.currentIndex - 1];
         examCloned.currentIndex = examCloned.currentIndex - 1;
         setExam(prevValue);
-        setError({})
+        setError({});
       }
     }
 
