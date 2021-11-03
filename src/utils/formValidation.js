@@ -1,4 +1,4 @@
-import { ConfirmPassword, newPassword, Password } from "./constaint";
+import { ConfirmPassword, newPassword, Password } from "./validationConstaint";
 
 export default function fromValidation(name, values) {
   const err = {};

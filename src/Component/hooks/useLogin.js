@@ -17,6 +17,7 @@ const useLogin = () => {
   };
 
   const onChange = (e) => {
+    console.log("Login onChange is called");
     const { name, value } = e.target;
     const cloned = { ...userData };
     if (name === "email" || name === "password") {
@@ -32,6 +33,7 @@ const useLogin = () => {
     // }
 
     setUserData(cloned);
+    console.log(`clone login data is`, cloned);
   };
 
   const handleLogin = () => {
