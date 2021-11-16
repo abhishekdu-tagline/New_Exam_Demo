@@ -19,7 +19,7 @@ const useNewPassword = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handlePassword = (e) => {
+  const onChange = (e) => {
     const { name, value } = e.target;
     const passWordCloned = { ...newPassword };
     if (name === "Password" || name === "ConfirmPassword") {
@@ -64,7 +64,7 @@ const useNewPassword = () => {
     }
   };
 
-  return [newPassword, error, handlePassword, handlePasswordSubmit];
+  return [newPassword, error, onChange, handlePasswordSubmit];
 };
 
 export default useNewPassword;

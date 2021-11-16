@@ -1,11 +1,10 @@
 import React from "react";
 
-const DropDownMenu = ({ select, menuName, onChange }) => {
-  //   console.log("Subject Names is", select);
+const DropDownMenu = ({ selectListValues, name, onChange }) => {
   return (
     <>
-      <select name={menuName} onChange={onChange()}>
-        {select.map((option, index) => {
+      <select name={name} onChange={onChange}>
+        {selectListValues.map((option, index) => {
           return (
             <React.Fragment key={index}>
               <option value={option?.label}>{option?.value}</option>
@@ -13,6 +12,7 @@ const DropDownMenu = ({ select, menuName, onChange }) => {
           );
         })}
       </select>
+      <br />
     </>
   );
 };

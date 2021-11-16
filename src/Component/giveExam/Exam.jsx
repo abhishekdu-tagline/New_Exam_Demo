@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { examListAction } from "../../redux/actions/ExamListAction";
 import { showExamPaper } from "../../redux/actions/viewExamPaperAction";
+import Table from "../../reusable/Table";
 import { objectKeys } from "../../utils/regex";
 const Exam = () => {
   const dispatch = useDispatch();
@@ -23,44 +24,44 @@ const Exam = () => {
   });
 
   console.log(`tableHeader List is`, tableHeaderList);
+
+  const tableHeader = [
+    {
+      id: 1,
+      label: "notes",
+      name: "notes",
+    },
+    {
+      id: 2,
+      label: "subjectName",
+      name: "subjectName",
+    },
+    {
+      id: 3,
+      label: "email",
+      name: "email",
+    },
+  ];
+
+  const buttonAttributes = [
+    {
+      value: "ViewExam",
+      name: "viewExam",
+      type: "button",
+      typeOf: "viewExam",
+      onClick: (_id) => {
+        dispatch(showExamPaper(_id, history));
+      },
+    },
+  ];
   return (
     <>
       <h4>Student Exam</h4>
-      <table border="1">
-        <thead>
-          <tr>
-            {tableHeaderList.map((th, index) => {
-              return (
-                <React.Fragment key={index}>
-                  <th>{th}</th>
-                </React.Fragment>
-              );
-            })}
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {examList.map((exams) => {
-            return (
-              <tr key={exams._id}>
-                <td>{exams.notes}</td>
-                <td>{exams.subjectName}</td>
-                <td>{exams.email}</td>
-                <td>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      dispatch(showExamPaper(exams._id, history));
-                    }}
-                  >
-                    View Exam Paper
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <Table
+        cols={tableHeader}
+        tableData={examList}
+        buttonAttributes={buttonAttributes}
+      />
     </>
   );
 };

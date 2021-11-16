@@ -2,25 +2,38 @@ import React from "react";
 import Form from "../../reusable/Form";
 import Button from "../../reusable/Button";
 import useGiveExam from "../hooks/useGiveExam";
+import { formAttributes } from "../../redux/constaints/giveExamFileds";
 
 const ExamPaper = () => {
   const [handleChange, submitAnswer, giveExam, examData] = useGiveExam() || [];
-  console.log("give Exam Current Data is", giveExam?.currentIndexData);
-  console.log("selected Answer is", giveExam?.selectedAnswer);
+
+  const btnStatus = giveExam.currentIndex === examData.length - 1;
+  const buttonAttributes = [
+    {
+      value: "submitAnswer",
+      name: "submitAnswer",
+      type: "button",
+      typeOf: "submitAnswer",
+      onClick: submitAnswer,
+    },
+    {
+      value: btnStatus ? "finishExam" : "next",
+      name: btnStatus ? "finishExam" : "next",
+      type: "button",
+      typeOf: btnStatus ? "finishExam" : "next",
+      onClick: handleChange,
+    },
+  ];
 
   return (
     <>
-      <form>
-        <Form formId="giveExam" formData={giveExam} onChange={handleChange} />
-        <Button buttonName="submit" handleSubmit={submitAnswer} />
-
-        {giveExam.currentIndex === examData.length - 1 ? (
-          <Button buttonName="finishExam" handleSubmit={handleChange} />
-        ) : (
-          <Button buttonName="next" handleSubmit={handleChange} />
-        )}
-      </form>
-      <br />
+      <Form
+        formAttributes={formAttributes}
+        onChange={handleChange}
+        buttonAttributes={buttonAttributes}
+        currentQuestion={giveExam?.currentIndexData}
+        selectedAnswer={giveExam?.selectAnswer}
+      />
     </>
   );
 };

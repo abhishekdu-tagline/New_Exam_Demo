@@ -13,3 +13,9 @@ export const subjectName = "subjectName";
 export const question = "question";
 export const answer = "answer";
 export const options = "options";
+
+/// give exam
+
+export const giveAnswer = "giveAnswer";
+
+/// New Password

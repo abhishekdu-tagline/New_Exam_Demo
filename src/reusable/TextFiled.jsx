@@ -1,9 +1,11 @@
 import React from "react";
 
-const TextFiled = ({ onChange, ...otherPros }) => {
+const TextFiled = ({ item, onChange, value, ...otherPros }) => {
+  // console.log(`value is`, value);
+  // console.log(`other Props is`, otherPros);
   return (
     <>
-      <input onChange={onChange} {...otherPros} />
+      <input onChange={onChange} value={value} {...otherPros} />
 
       <br />
     </>

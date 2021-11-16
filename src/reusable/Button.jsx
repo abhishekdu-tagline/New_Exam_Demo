@@ -1,16 +1,10 @@
 import React from "react";
 
-const Button = ({ buttonData }) => {
-  const { type, value, name, onClick } = buttonData;
-  console.log(`button type is`, type);
-  console.log(`button type is`, value);
-  console.log(`button type is`, name);
-  console.log(`button type is`, onClick);
+const Button = ({ children, ...otherProps }) => {
+  // console.log(`other props is`, otherProps);
   return (
     <>
-      <button type={type} name={name} onClick={onClick}>
-        {value}
-      </button>
+      <button {...otherProps}>{children}</button>
     </>
   );
 };

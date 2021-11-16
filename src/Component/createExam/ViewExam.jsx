@@ -56,51 +56,32 @@ const ViewExam = () => {
     },
   ];
 
+  const buttonAttributes = [
+    {
+      value: "delete",
+      name: "delete",
+      type: "button",
+      typeOf: "delete",
+      onClick: (_id) => dispatch(deleteExams(_id, history)),
+    },
+    {
+      value: "edit",
+      name: "edit",
+      type: "button",
+      typeOf: "edit",
+      onClick: (_id) => {
+        history.push(`/edit_exam/${_id}`);
+      },
+    },
+  ];
+
   return (
     <>
-      <Table cols={tableHeader} tableData={viewExam} />
-      {/* ViewExam Component
-      <table border="1">
-        <thead>
-          <tr>
-            {thead.map((th, index) => {
-              return (
-                <React.Fragment key={index}>
-                  <th>{th}</th>
-                </React.Fragment>
-              );
-            })}
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {viewExam.map((exams) => {
-            return (
-              <tr key={exams._id}>
-                <td>{exams.notes}</td>
-                <td>{exams.subjectName}</td>
-
-                <td>
-                  <button
-                    type="button"
-                    onClick={() => dispatch(deleteExams(exams._id, history))}
-                  >
-                    Delete Exam
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      history.push(`/edit_exam/${exams._id}`);
-                    }}
-                  >
-                    Edit Exam
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table> */}
+      <Table
+        cols={tableHeader}
+        tableData={viewExam}
+        buttonAttributes={buttonAttributes}
+      />
     </>
   );
 };

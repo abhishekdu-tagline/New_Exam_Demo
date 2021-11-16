@@ -1,15 +1,25 @@
 import React from "react";
+import { formAttributes } from "../../redux/constaints/newPasswordfiled";
+import Form from "../../reusable/Form";
 
 import useNewPassword from "../hooks/useNewPassword";
 
 const NewPassword = () => {
-  const [newPassword, error, handlePassword, handlePasswordSubmit] =
-    useNewPassword();
+  const [newPassword, error, onChange, handlePasswordSubmit] = useNewPassword();
   console.log("Error is", error);
+
+  const buttonAttributes = {
+    type: "button",
+    value: "setNewPassword",
+    name: "newPassword",
+    onClick: handlePasswordSubmit,
+  };
+
   return (
     <>
       <h4> New Password</h4>
-      {Object.entries(newPassword).map(([key, val], index) => {
+      <Form {...{ formAttributes, onChange, buttonAttributes }} />
+      {/* {Object.entries(newPassword).map(([key, val], index) => {
         console.log([key, val]);
         return (
           <div key={index}>
@@ -32,7 +42,7 @@ const NewPassword = () => {
       })}
       <button type="button" name="newPassword" onClick={handlePasswordSubmit}>
         Set New Password
-      </button>
+      </button> */}
     </>
   );
 };

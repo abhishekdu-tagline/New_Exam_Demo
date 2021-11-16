@@ -63,20 +63,21 @@ const useCreateExam = () => {
     return errorMessage;
   };
 
-  const onChange = (i) => (e) => {
+  const onChange = (e, i) => {
     console.log("function is called");
     console.log("i is", i);
     const { name, value } = e.target;
     const examCloned = { ...exam };
 
-    // console.log("name and value is", name, value);
+    console.log("name and value is", name, value);
 
     if (name === "subjectName") {
-      // console.log("condition is true");
+      console.log("condition is true");
       examCloned[name] = value;
     }
 
     if (name === "options") {
+      console.log(`run`);
       examCloned.questions[examCloned.currentIndex][name][i] = value;
     }
     if (name === "question" || name === "answer") {
