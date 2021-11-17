@@ -30,17 +30,6 @@ const useNewPassword = () => {
         [name]: valid(name, value, newPassword),
       }));
     }
-
-    // if (name === "newPassword") {
-    //   console.log("Object value is", passWordCloned);
-    //   const validation = fromValidation(name, passWordCloned);
-    //   setError(validation);
-    //   console.log("Validation on Button Click", validation);
-    //   // if (Object.keys(validation).length === 0) {
-    //   //   dispatch(setNewPasswordAction(newPassword, searchToken, history));
-    //   // }
-    // }
-
     setNewPassword(passWordCloned);
   };
 
@@ -49,7 +38,6 @@ const useNewPassword = () => {
 
     Object.keys(newPassword).forEach((name) => {
       const error = valid(name, newPassword[name], newPassword);
-
       if (error && error.length > 0) {
         validationErrors[name] = error;
       }
