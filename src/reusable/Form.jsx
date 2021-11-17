@@ -6,34 +6,38 @@ import DropDownMenu from "./DropDownMenu";
 import ButtonMapping from "./ButtonMapping";
 import Label from "./Label";
 
-const Form = ({ formAttributes, onChange, buttonAttributes, ...otherPros }) => {
+const Form = ({
+  formAttributes,
+  onChange,
+  buttonAttributes,
+  error,
+  ...otherPros
+}) => {
   // console.log(`other props is`, otherPros);
   // console.log(`login form attributes: ${formAttributes}`);
   return (
     <form>
       {objectValues(formAttributes).map(({ ...item }, index) => {
-        // console.log(`item is`, item, index);
         const { pattern } = item;
-        // console.log(`pattern is`, pattern);
-
         let name = objectKeys(formAttributes)[index];
-        // console.log(`name is`, name);
-
         switch (pattern) {
           case "subjectName":
-            return <DropDownMenu {...{ ...otherPros, name, onChange }} />;
+            return (
+              <DropDownMenu {...{ ...otherPros, name, onChange, error }} />
+            );
 
           case "name":
           case "email":
           case "role":
           case "password":
+          case "oldPassword":
           case "Password":
           case "ConfirmPassword":
           case "question":
             return (
               <TextFiled
                 key={index}
-                {...{ ...item, name, onChange }}
+                {...{ ...item, name, onChange, error }}
                 value={otherPros.textValue}
                 placeholder={`Enter ${name}`}
               />
@@ -72,7 +76,7 @@ const Form = ({ formAttributes, onChange, buttonAttributes, ...otherPros }) => {
               <>
                 {Object.entries(otherPros.currentQuestion).map(
                   ([key, value]) => {
-                    console.log([key, value]);
+                    console.log(`error`, error);
                     return (
                       <>
                         {Array.isArray(value) &&
@@ -92,6 +96,7 @@ const Form = ({ formAttributes, onChange, buttonAttributes, ...otherPros }) => {
                                 onChange={(e) => {
                                   onChange(e, i);
                                 }}
+                                error={error?.options?.[i]}
                                 value={op}
                                 placeholder={`Enter ${name}`}
                               />

@@ -46,7 +46,7 @@ const useLogin = () => {
       if (error && error.length > 0) {
         validationErrors[name] = error;
       }
-      console.log("Error is", validationErrors);
+      // console.log("Error is", validationErrors);
     });
 
     if (Object.keys(validationErrors).length > 0) {

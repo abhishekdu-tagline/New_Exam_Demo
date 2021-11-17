@@ -5,13 +5,22 @@ import { formAttributes } from "../../redux/constaints/createExamFiled";
 
 const CreateExam = () => {
   // console.log("Create Exam Rendering");
-  const [exam, buttonStatus, error, onChange, clearData, createExam] =
-    useCreateExam();
+  const [
+    exam,
+    buttonStatus,
+    error,
+    onChange,
+    clearData,
+    createExam,
+    nextQuestion,
+    prevQuestion,
+  ] = useCreateExam();
   const baseUrl =
     "https://nodejsexamination.herokuapp.com/dashboard/Teachers/Exam";
 
   console.log("Final Exam Object is", exam);
-  console.log(`button Status is`, buttonStatus);
+  // console.log(`button Status is`, buttonStatus);
+  console.log(`current Question is`, exam?.questions[exam?.currentIndex]);
   const subjectList = [
     {
       value: "ReactJS",
@@ -21,6 +30,10 @@ const CreateExam = () => {
       value: "AngularJS",
       label: "AngularJS",
     },
+    {
+      value: "Python",
+      label: "Python",
+    },
   ];
 
   const buttonAttributes = [
@@ -29,14 +42,14 @@ const CreateExam = () => {
       name: "prev",
       type: "button",
       typeOf: "prev",
-      onClick: onChange,
+      onClick: prevQuestion,
     },
     {
       value: "next",
       name: "next",
       type: "button",
       typeOf: "next",
-      onClick: onChange,
+      onClick: nextQuestion,
     },
     {
       value: "clear",
@@ -71,6 +84,7 @@ const CreateExam = () => {
         currentQuestion={exam.questions[exam.currentIndex]}
         textValue={exam.questions[exam.currentIndex].question}
         currentAnswer={exam.questions[exam.currentIndex].answer}
+        error={error}
       />
     </>
   );

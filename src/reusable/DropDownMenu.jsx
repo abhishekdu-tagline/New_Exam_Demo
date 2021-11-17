@@ -12,6 +12,7 @@ const DropDownMenu = ({ selectListValues, name, onChange }) => {
           );
         })}
       </select>
+
       <br />
     </>
   );

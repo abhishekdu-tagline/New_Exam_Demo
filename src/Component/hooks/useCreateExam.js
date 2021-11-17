@@ -25,22 +25,11 @@ const useCreateExam = () => {
 
   const checkValidation = (myObj) => {
     let errorMessage = {};
-    // );myObj.options.includes("")
-    //   ? alert("plese fill in the data")
-    //   : console.log("executed"
     console.log("my Obj is", myObj);
 
     if (!myObj?.question) {
       errorMessage.question = "Enter Question........";
     }
-
-    // for (let i = 0; i < myObj.options.length - 1; i++) {
-    //   // debugger;
-    //   if (myObj.options[i] === "") {
-    //     console.log("Condition is true");
-    //     errorMessage.options = "Enter Options........";
-    //   }
-    // }
 
     if (myObj?.options) {
       const optionErr = myObj.options.map((item) => {
@@ -57,9 +46,7 @@ const useCreateExam = () => {
     }
 
     console.log("Error Object  Message is", errorMessage);
-
     setError(errorMessage);
-
     return errorMessage;
   };
 
@@ -84,73 +71,6 @@ const useCreateExam = () => {
       examCloned.questions[examCloned.currentIndex][name] = value;
     }
 
-    if (name === "next") {
-      console.log("Current Index is", examCloned.currentIndex);
-      if (examCloned.currentIndex < examCloned.questions.length - 1) {
-        console.log("if is run......");
-        const data =
-          examCloned?.questions[examCloned.currentIndex]?.options.includes("");
-        if (data) {
-          let errMsg = checkValidation(
-            examCloned?.questions[examCloned.currentIndex]
-          );
-          console.log("error Message", errMsg);
-        } else {
-          setButtonStatus(true);
-          examCloned.currentIndex = examCloned.currentIndex + 1;
-          let nextValue = examCloned.questions[examCloned.currentIndex + 1];
-          setExam(nextValue);
-          setError({});
-        }
-      } else if (examCloned.currentIndex === examCloned.questions.length - 1) {
-        console.log("Else if is run");
-        const data =
-          examCloned?.questions[examCloned.currentIndex]?.options.includes("");
-        if (data) {
-          let errMsg = checkValidation(
-            examCloned?.questions[examCloned.currentIndex]
-          );
-          console.log("error Message", errMsg);
-        } else {
-          console.log("Error Object length is");
-          examCloned.currentIndex = examCloned.currentIndex + 1;
-          console.log("current Index is", examCloned.currentIndex);
-          examCloned.questions.push({
-            question: "",
-            answer: "",
-            options: ["", "", "", ""],
-          });
-
-          setError({});
-        }
-        // let errMsg = checkValidation(
-        //   examCloned.questions[examCloned.currentIndex]
-        // );
-        // if (Object.keys(errMsg).length === 0) {
-        //   examCloned.currentIndex = examCloned.currentIndex + 1;
-        //   console.log("current Index is", examCloned.currentIndex);
-        //   examCloned.questions.push({
-        //     question: "",
-        //     answer: "",
-        //     options: ["", "", "", ""],
-        //   });
-        // }
-      }
-
-      // console.log("Exam Clone", examCloned.questions);
-    }
-    if (name === "prev") {
-      setButtonStatus(false);
-      if (examCloned.currentIndex === 0) {
-        setExam(examCloned);
-      } else {
-        let prevValue = examCloned.questions[examCloned.currentIndex - 1];
-        examCloned.currentIndex = examCloned.currentIndex - 1;
-        setExam(prevValue);
-        setError({});
-      }
-    }
-
     if (name === "update") {
       const updateExam = examCloned.questions.map((item, index) => {
         if (index === examCloned.currentIndex) {
@@ -164,6 +84,68 @@ const useCreateExam = () => {
       setExam(updateExam);
     }
     setExam(examCloned);
+  };
+
+  ///// next Functnality Methods
+
+  const nextQuestion = () => {
+    const examCloned = { ...exam };
+    // console.log("Current Index is", examCloned.currentIndex);
+    if (examCloned.currentIndex < examCloned.questions.length - 1) {
+      console.log("if is run......");
+      const data =
+        examCloned?.questions[examCloned.currentIndex]?.options.includes("");
+      if (data) {
+        let errMsg = checkValidation(
+          examCloned?.questions[examCloned.currentIndex]
+        );
+        console.log("error Message", errMsg);
+      } else {
+        setButtonStatus(true);
+        examCloned.currentIndex = examCloned.currentIndex + 1;
+        let nextValue = examCloned.questions[examCloned.currentIndex + 1];
+        setExam(nextValue);
+        setError({});
+      }
+    } else if (examCloned.currentIndex === examCloned.questions.length - 1) {
+      console.log("Else if is run");
+      const data =
+        examCloned?.questions[examCloned.currentIndex]?.options.includes("");
+      if (data) {
+        let errMsg = checkValidation(
+          examCloned?.questions[examCloned.currentIndex]
+        );
+        console.log("error Message", errMsg);
+      } else {
+        console.log("Error Object length is");
+        examCloned.currentIndex = examCloned.currentIndex + 1;
+        console.log("current Index is", examCloned.currentIndex);
+        examCloned.questions.push({
+          question: "",
+          answer: "",
+          options: ["", "", "", ""],
+        });
+
+        setError({});
+      }
+    }
+    setExam(examCloned);
+  };
+
+  const prevQuestion = () => {
+    const examCloned = { ...exam };
+    setButtonStatus(false);
+    if (examCloned.currentIndex === 0) {
+      console.log(`if is run`);
+      setExam(examCloned);
+    } else {
+      console.log(`else is run...`);
+      let prevValue = examCloned.questions[examCloned.currentIndex - 1];
+      examCloned.currentIndex = examCloned.currentIndex - 1;
+      console.log(`prev Value is`, prevValue);
+      setExam(examCloned);
+      setError({});
+    }
   };
 
   const clearData = (id) => {
@@ -180,12 +162,21 @@ const useCreateExam = () => {
     setExam({ ...exam, questions: upDateArray });
   };
 
-  const createExam = () => {
+  const createExam = (baseUrl) => {
     const { currentIndex, ...rest } = exam;
     console.log(`rest`, rest);
-    dispatch(createExamActions(rest));
+    dispatch(createExamActions(baseUrl, rest));
   };
-  return [exam, buttonStatus, error, onChange, clearData, createExam];
+  return [
+    exam,
+    buttonStatus,
+    error,
+    onChange,
+    clearData,
+    createExam,
+    nextQuestion,
+    prevQuestion,
+  ];
 };
 
 export default useCreateExam;

@@ -48,7 +48,7 @@ const useResetPassword = () => {
     return errorObject;
   };
 
-  const handleNewPassword = (e) => {
+  const onChange = (e) => {
     const { name, value } = e.target;
     const passWordCloned = { ...resetPassword };
     if (
@@ -68,7 +68,7 @@ const useResetPassword = () => {
     setResetPassword(passWordCloned);
   };
 
-  return [resetPassword, error, handleNewPassword];
+  return [resetPassword, error, onChange];
 };
 
 export default useResetPassword;

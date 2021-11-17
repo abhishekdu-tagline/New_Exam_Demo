@@ -1,6 +1,4 @@
-export const Password = "Password";
 export const newPassword = "newPassword";
-export const ConfirmPassword = "ConfirmPassword";
 
 /// SingUp constaints
 export const name = "name";
@@ -19,3 +17,6 @@ export const options = "options";
 export const giveAnswer = "giveAnswer";
 
 /// New Password
+export const oldPassword = "oldPassword";
+export const Password = "Password";
+export const ConfirmPassword = "ConfirmPassword";

@@ -16,6 +16,8 @@ const Login = () => {
     onClick: handleLogin,
   };
 
+  // console.log(`error is login form `, error);
+
   return (
     <>
       <h4> Login </h4>
@@ -30,7 +32,7 @@ const Login = () => {
         <Button buttonName="Login" handleSubmit={handleLogin} />
         <br /> <br />
       </form> */}
-      <Form {...{ formAttributes, onChange, buttonAttributes }} />
+      <Form {...{ formAttributes, onChange, buttonAttributes, error }} />
       <Link to="/forgot_password">Forgot Password</Link> <br />
       <Link to="/signUp">Sign Up</Link> <br />
     </>
